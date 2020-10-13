@@ -40,7 +40,7 @@ class MessageHub:
         :param handler_object: subclass of Handler from applied_computer_science_discord_bot.message_handlers
         :return: None
         """
-        if not issubclass(handler_object.__class__, Handler) or not issubclass(handler_object.__class__, CommandHandler):
+        if not (issubclass(handler_object.__class__, Handler) or issubclass(handler_object.__class__, CommandHandler)):
             raise TypeError("parameter 'handler_object' must be a subclass of Handler!")
 
         if msg_type not in self.handlers:

@@ -6,11 +6,11 @@ from applied_computer_science_discord_bot.message_hub import MessageHub, Message
 
 class MessageHubTests(unittest.TestCase):
     def setUp(self) -> None:
-        self.hub = MessageHub()
+        self.hub = MessageHub(None)
 
     def test_registering_invalid_object_raises_error(self):
         with self.assertRaises(TypeError):
-            hub = MessageHub()
+            hub = MessageHub(None)
             hub.register_handler(MessageType.All, lambda x: x**2)
 
     def test_registering_new_msg_type_for_the_first_time_ads_a_field_to_handlers(self):

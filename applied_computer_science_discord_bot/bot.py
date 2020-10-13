@@ -12,6 +12,7 @@ hub = MessageHub(client)
 
 @client.event
 async def on_message(message: Message):
+    print(message.content)
     if client.user != message.author:
         hub.accept_message(message)
 

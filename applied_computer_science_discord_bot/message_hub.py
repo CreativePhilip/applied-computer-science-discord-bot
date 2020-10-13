@@ -22,16 +22,17 @@ class MessageHub:
         Method for handling every incoming message from the discord API
         :param message:
         """
-        msg_type = self._message_type(message)
+        msg_type = self._message_type(message.content)
         self.__emit(message, msg_type)
 
-    def _message_type(self, message: Message) -> "MessageType":
+    @staticmethod
+    def _message_type(message: str) -> "MessageType":
         """
         Analyzes the message and determines its type
-        :param message: Discord message object
+        :param message: message content
         :return:
         """
-        pass
+        return MessageType.COMMAND if re.match(r"^bot\..*[(].*[)]$", message) else MessageType.NORMAL
 
     def register_handler(self, msg_type: "MessageType", handler_object):
         """

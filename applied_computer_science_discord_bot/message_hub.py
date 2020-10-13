@@ -2,7 +2,7 @@ from enum import Enum
 import re
 from discord import Client
 
-from applied_computer_science_discord_bot.message_handlers import Handler
+from applied_computer_science_discord_bot.message_handlers import Handler, CommandHandler, ParsedCommand
 from discord.message import Message
 
 
@@ -11,7 +11,7 @@ class MessageHub:
     Main class for getting all the messages, to use it you just have to call
     obj.register_handler() with appropriate params
     """
-    def __init__(self, client=Client):
+    def __init__(self, client: Client):
         self.client = client
         self.handlers = {}
 
@@ -40,7 +40,7 @@ class MessageHub:
         :param handler_object: subclass of Handler from applied_computer_science_discord_bot.message_handlers
         :return: None
         """
-        if not issubclass(handler_object.__class__, Handler):
+        if not issubclass(handler_object.__class__, Handler) or not issubclass(handler_object.__class__, CommandHandler):
             raise TypeError("parameter 'handler_object' must be a subclass of Handler!")
 
         if msg_type not in self.handlers:
@@ -48,7 +48,12 @@ class MessageHub:
         self.handlers[msg_type].append(handler_object)
 
     def __emit(self, message: Message, message_type: "MessageType"):
-        pass
+        payload = {"message": message}
+        if message_type == MessageType.COMMAND:
+            payload.update({"parsed_message": ParsedCommand.from_string(message.content)})
+
+        for handler in self.handlers[message_type]:
+            handler.handle(**payload)
 
 
 class MessageType(Enum):

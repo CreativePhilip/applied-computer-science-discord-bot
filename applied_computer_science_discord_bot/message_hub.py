@@ -17,13 +17,13 @@ class MessageHub:
 
         self.last_message = None
 
-    def accept_message(self, message: Message):
+    async def accept_message(self, message: Message):
         """
         Method for handling every incoming message from the discord API
         :param message:
         """
         msg_type = self._message_type(message.content)
-        self.__emit(message, msg_type)
+        await self.__emit(message, msg_type)
 
     @staticmethod
     def _message_type(message: str) -> "MessageType":
@@ -46,14 +46,17 @@ class MessageHub:
         if msg_type not in self.handlers:
             self.handlers.update({msg_type: []})
         self.handlers[msg_type].append(handler_object)
+        print("Registered a handler!")
+        print (self.handlers)
 
-    def __emit(self, message: Message, message_type: "MessageType"):
+    async def __emit(self, message: Message, message_type: "MessageType"):
         payload = {"message": message}
         if message_type == MessageType.COMMAND:
             payload.update({"parsed_message": ParsedCommand.from_string(message.content)})
 
         for handler in self.handlers[message_type]:
-            handler.handle(**payload)
+            print("Forwarded a message!")
+            await handler.handle(**payload)
 
 
 class MessageType(Enum):

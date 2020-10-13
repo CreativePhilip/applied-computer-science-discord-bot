@@ -1,5 +1,5 @@
 from enum import Enum
-
+import re
 from discord import Client
 
 from applied_computer_science_discord_bot.message_handlers import Handler
@@ -26,6 +26,11 @@ class MessageHub:
         self.__emit(message, msg_type)
 
     def _message_type(self, message: Message) -> "MessageType":
+        """
+        Analyzes the message and determines its type
+        :param message: Discord message object
+        :return:
+        """
         pass
 
     def register_handler(self, msg_type: "MessageType", handler_object):

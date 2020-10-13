@@ -1,0 +1,8 @@
+language: python
+os: linux
+dist: bionic
+python:
+  - "3.8"
+
+script:
+  - "python -m unittest -v"

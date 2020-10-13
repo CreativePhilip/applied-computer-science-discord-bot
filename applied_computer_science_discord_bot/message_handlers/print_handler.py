@@ -9,4 +9,4 @@ class PrintHandler(virtual_handler.CommandHandler):
         if parsed_message.name == "print":
             if "text" in parsed_message.arguments:
                 response = parsed_message.arguments["text"]
-            await message.channel.send(response)
+                await message.channel.send(response)

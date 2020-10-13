@@ -46,8 +46,6 @@ class MessageHub:
         if msg_type not in self.handlers:
             self.handlers.update({msg_type: []})
         self.handlers[msg_type].append(handler_object)
-        print("Registered a handler!")
-        print (self.handlers)
 
     async def __emit(self, message: Message, message_type: "MessageType"):
         payload = {"message": message}
@@ -55,7 +53,6 @@ class MessageHub:
             payload.update({"parsed_message": ParsedCommand.from_string(message.content)})
 
         for handler in self.handlers[message_type]:
-            print("Forwarded a message!")
             await handler.handle(**payload)
 
 

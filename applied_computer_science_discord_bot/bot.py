@@ -3,7 +3,7 @@ import discord
 from discord.message import Message
 
 from applied_computer_science_discord_bot.message_hub import MessageHub, MessageType
-from applied_computer_science_discord_bot.message_handlers import PrintHandler
+from applied_computer_science_discord_bot.message_handlers import PrintHandler, DeleteMessagesHandler
 
 TOKEN = os.environ["token"]
 
@@ -21,6 +21,7 @@ async def on_message(message: Message):
 async def on_ready():
     print(f'{client.user} has connected to Discord!')
     hub.register_handler(MessageType.COMMAND, PrintHandler())
+    hub.register_handler(MessageType.COMMAND, DeleteMessagesHandler())
 
 
 client.run(TOKEN, bot=True, reconnect=True)

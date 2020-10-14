@@ -2,7 +2,8 @@ import os
 import discord
 from discord.message import Message
 
-from applied_computer_science_discord_bot.message_hub import MessageHub
+from applied_computer_science_discord_bot.message_hub import MessageHub, MessageType
+from applied_computer_science_discord_bot.message_handlers import PrintHandler
 
 TOKEN = os.environ["token"]
 
@@ -12,14 +13,14 @@ hub = MessageHub(client)
 
 @client.event
 async def on_message(message: Message):
-    print(message.content)
     if client.user != message.author:
-        hub.accept_message(message)
+        await hub.accept_message(message)
 
 
 @client.event
 async def on_ready():
     print(f'{client.user} has connected to Discord!')
+    hub.register_handler(MessageType.COMMAND, PrintHandler())
 
 
 client.run(TOKEN, bot=True, reconnect=True)

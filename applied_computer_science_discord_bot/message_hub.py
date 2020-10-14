@@ -48,6 +48,9 @@ class MessageHub:
         self.handlers[msg_type].append(handler_object)
 
     async def __emit(self, message: Message, message_type: "MessageType"):
+        if message_type not in self.handlers:
+            return
+
         payload = {"message": message}
         if message_type == MessageType.COMMAND:
             payload.update({"parsed_message": ParsedCommand.from_string(message.content)})

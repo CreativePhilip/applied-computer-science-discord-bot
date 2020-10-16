@@ -1,4 +1,3 @@
-from abc import abstractmethod
 from typing import Dict
 
 from discord import Message, Client

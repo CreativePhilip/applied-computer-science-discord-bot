@@ -8,7 +8,6 @@ class Handler:
     def __init__(self, client: Client):
         self.client = client
 
-    @abstractmethod
     async def handle(self, message: Message):
         pass
 
@@ -17,7 +16,6 @@ class CommandHandler:
     def __init__(self, client: Client):
         self.client = client
 
-    @abstractmethod
     async def handle(self, message:  Message, parsed_message, *, is_auth=True):
         pass
 

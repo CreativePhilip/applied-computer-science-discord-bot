@@ -14,7 +14,7 @@ class MessageHubTests(unittest.TestCase):
             hub.register_handler(MessageType.All, lambda x: x**2)
 
     def test_registering_new_msg_type_for_the_first_time_ads_a_field_to_handlers(self):
-        test = TestHandler()
+        test = TestHandler(None)
 
         self.hub.register_handler(MessageType.COMMAND, test)
         self.hub.register_handler(MessageType.NORMAL, test)
@@ -25,7 +25,7 @@ class MessageHubTests(unittest.TestCase):
         self.assertTrue(MessageType.NORMAL in self.hub.handlers)
 
     def test_registering_multiple_same_type_handlers_adds_properly(self):
-        test = TestHandler()
+        test = TestHandler(None)
 
         self.hub.register_handler(MessageType.COMMAND, test)
         self.hub.register_handler(MessageType.COMMAND, test)

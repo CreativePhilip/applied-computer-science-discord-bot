@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import os
 import discord
 from discord.message import Message
@@ -20,7 +22,7 @@ async def on_message(message: Message):
 @client.event
 async def on_ready():
     print(f'{client.user} has connected to Discord!')
-    hub.register_handler(MessageType.COMMAND, PrintHandler())
+    hub.register_handler(MessageType.COMMAND, PrintHandler(client=client))
 
 
 client.run(TOKEN, bot=True, reconnect=True)

@@ -1,16 +1,22 @@
 from abc import abstractmethod
 from typing import Dict
 
-from discord import Message
+from discord import Message, Client
 
 
 class Handler:
+    def __init__(self, client: Client):
+        self.client = client
+
     @abstractmethod
     def handle(self, message: Message):
         pass
 
 
 class CommandHandler:
+    def __init__(self, client: Client):
+        self.client = client
+
     @abstractmethod
     def handle(self, message: Message, parsed_message):
         pass

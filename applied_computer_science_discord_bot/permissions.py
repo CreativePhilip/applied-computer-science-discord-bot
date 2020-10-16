@@ -12,7 +12,7 @@ def has_role(role):
             author: Member = msg.author
 
             kwargs.update({"is_auth": _rank_in_list(role, author.roles)}
-                          if type(role) == str else _ranks_in_list(role, author.roles))
+                          if type(role) is str else _ranks_in_list(role, author.roles))
             return func(self, *args, **kwargs)
 
         return wrapper

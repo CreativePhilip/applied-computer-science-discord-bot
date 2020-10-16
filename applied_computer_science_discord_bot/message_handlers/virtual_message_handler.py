@@ -18,7 +18,7 @@ class CommandHandler:
         self.client = client
 
     @abstractmethod
-    def handle(self, message: Message, parsed_message):
+    def handle(self, message: Message, parsed_message, is_auth=True):
         pass
 
 

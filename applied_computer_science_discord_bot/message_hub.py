@@ -22,11 +22,11 @@ class MessageHub:
         Method for handling every incoming message from the discord API
         :param message:
         """
-        msg_type = self._message_type(message.content)
+        msg_type = self.message_type(message.content)
         await self.__emit(message, msg_type)
 
     @staticmethod
-    def _message_type(message: str) -> "MessageType":
+    def message_type(message: str) -> "MessageType":
         """
         Analyzes the message and determines its type
         :param message: message content

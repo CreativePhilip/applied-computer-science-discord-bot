@@ -18,7 +18,7 @@ class CommandHandler:
         self.client = client
 
     @abstractmethod
-    def handle(self, message: Message, parsed_message, is_auth=True):
+    def handle(self, message: Message, parsed_message, *, is_auth=True):
         pass
 
 
@@ -38,7 +38,7 @@ class ParsedCommand:
             for arg in args_str:
                 key, value = arg.split("=")
                 args.update({key: value})
-        except:
+        except (KeyError, ValueError):
             pass
 
         return cls(name, args)

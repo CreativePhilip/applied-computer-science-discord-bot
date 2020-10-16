@@ -34,15 +34,15 @@ class MessageHubTests(unittest.TestCase):
         self.assertEqual(len(self.hub.handlers[MessageType.COMMAND]), 3)
 
     def test_message_type_recognizes_valid_commands(self):
-        type1 = self.hub._message_type("bot.twoja_stara()")
-        type2 = self.hub._message_type("bot.twoja_stara(xd=12)")
+        type1 = self.hub.message_type("bot.twoja_stara()")
+        type2 = self.hub.message_type("bot.twoja_stara(xd=12)")
 
         self.assertEqual(type1, MessageType.COMMAND)
         self.assertEqual(type2, MessageType.COMMAND)
 
     def test_message_type_recognizes_other_message(self):
-        type1 = MessageHub._message_type("bottwoja_stara()")
-        type2 = MessageHub._message_type("bottwoja_stara(xd=12)")
+        type1 = MessageHub.message_type("bottwoja_stara()")
+        type2 = MessageHub.message_type("bottwoja_stara(xd=12)")
 
         self.assertEqual(type1, MessageType.NORMAL)
         self.assertEqual(type2, MessageType.NORMAL)
